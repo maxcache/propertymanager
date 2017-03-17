@@ -1,0 +1,43 @@
+{
+  "name": "propertymanager",
+  "version": "0.0.1",
+  "description": "property manager",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maxcache/propertymanager.git"
+  },
+  "keywords": [
+    "property", 
+    "manager"
+  ],
+  "author": "vikram",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maxcache/propertymanager/issues"
+  },
+  "homepage": "https://github.com/maxcache/propertymanager#readme",
+  "dependencies": {
+    "@angular/common": "~2.4.0",
+    "@angular/compiler": "~2.4.0",
+    "@angular/core": "~2.4.0",
+    "@angular/forms": "~2.4.0",
+    "@angular/http": "~2.4.0",
+    "@angular/platform-browser": "~2.4.0",
+    "@angular/platform-browser-dynamic": "~2.4.0",
+    "@angular/router": "~3.4.0",
+    "core-js": "^2.4.1",
+    "rxjs": "~5.2.0",
+    "zone.js": "^0.8.4"
+  },
+  "devDependencies": {  
+    "rimraf": "^2.6.1", 
+    "webpack": "^2.2.1",
+    "@types/webpack": "^2.0.0",
+    "@types/node": "^7.0.8"
+
+  }
+}
