@@ -4,14 +4,14 @@
   "description": "property manager",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "gulp build"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/maxcache/propertymanager.git"
   },
   "keywords": [
-    "property", 
+    "property",
     "manager"
   ],
   "author": "vikram",
@@ -21,23 +21,30 @@
   },
   "homepage": "https://github.com/maxcache/propertymanager#readme",
   "dependencies": {
-    "@angular/common": "~2.4.0",
-    "@angular/compiler": "~2.4.0",
-    "@angular/core": "~2.4.0",
-    "@angular/forms": "~2.4.0",
-    "@angular/http": "~2.4.0",
-    "@angular/platform-browser": "~2.4.0",
-    "@angular/platform-browser-dynamic": "~2.4.0",
-    "@angular/router": "~3.4.0",
+    "@angular/common": "~4.1.0",
+    "@angular/compiler": "~4.1.0",
+    "@angular/core": "~4.1.0",
+    "@angular/forms": "~4.1.0",
+    "@angular/http": "~4.1.0",
+    "@angular/platform-browser": "~4.1.0",
+    "@angular/platform-browser-dynamic": "~4.1.0",
+    "@angular/router": "~4.1.0",
     "core-js": "^2.4.1",
-    "rxjs": "~5.2.0",
-    "zone.js": "^0.8.4"
+    "rxjs": "~5.4.0",
+    "zone.js": "^0.8.10"
   },
-  "devDependencies": {  
-    "rimraf": "^2.6.1", 
-    "webpack": "^2.2.1",
+  "devDependencies": {
+    "@types/node": "^7.0.8",
     "@types/webpack": "^2.2.11",
-    "@types/node": "^7.0.8"
-
+    "awesome-typescript-loader": "^3.1.3",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-typescript": "^3.1.6",
+    "gulp-webpack": "^1.5.0",
+    "rimraf": "^2.6.1",
+    "run-sequence": "^1.2.2",
+    "typescript": "^2.3.2",
+    "webpack": "^2.5.1",
+    "webpack-stream": "^3.2.0"
   }
 }
