@@ -1,12 +1,31 @@
-var gulp = require('gulp');
-var concat = require('gulp-concat');
-
+const gulp = require('gulp');
+const concat = require('gulp-concat');
 const webpackConfig = require('./src/config/webpack.config.js');
 const webpackStream = require('webpack-stream');
 const runSequence = require('run-sequence');
 const rimraf = require('rimraf');
 const webpack2 = require('webpack');
+const compass = require('gulp-compass');
+const gulpConnect = require('gulp-connect');
 
+//Make sure you perform gulp build before gulp start
+//Build will prepare the dist dir and files initially
+gulp.task('start', ['connect', 'watch']);
+
+//START gulp tasks
+
+//compass for scss process and
+//images are passed seperately
+gulp.task('compass', function () {
+    gulp.src('sass/*.scss')
+        .pipe(compass({
+            config_file: './config.rb'
+        }));
+
+    gulp.src('sass/images/*')
+        .pipe(gulp.dest('dist/assets/images'));
+});
+ 
 
 //pass in the TypeScript folder to webpack for compileing
 //configuration for web pack declared above
@@ -28,9 +47,10 @@ gulp.task('clean', (cb) => {
     return rimraf('dist', cb);
 });
 
+//END gulp tasks
 
-//Need to configure compas ruby watch for sass
-//https://www.npmjs.com/package/gulp-compass
+
+//watch and connet for development
 gulp.task('watch', function () {
 
     gulp.watch(['src/scripts/**/*'], ['compile']).on('change', function (e) {
@@ -44,10 +64,19 @@ gulp.task('watch', function () {
         console.log('File : ' + e.path + ' has been changed. Compiling.');
     });
 
+    gulp.watch(['sass/**/*'], ['compass']).on('change', function (e) {
+        console.log('File : ' + e.path + ' has been changed. Compiling.');
+    });
 
 });
 
+gulp.task('connect', function() {
+  gulpConnect.server({
+    root: 'dist',
+    livereload: true
+  });
+});
 
 gulp.task("build", function (callback) {
-    runSequence('clean', 'compile', 'clientResources', callback);
+    runSequence('clean', 'compile', 'clientResources', 'compass', callback);
 })
