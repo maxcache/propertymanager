@@ -2,7 +2,9 @@ const util = require('./util');
 const { CheckerPlugin } = require('awesome-typescript-loader')
 module.exports = {
     entry: {
-        main: './src/scripts/main.ts'
+        main: './src/scripts/main.ts',
+        vendor: './src/scripts/vendor.ts',
+        polyfills: './src/scripts/polyfills.ts'
     },
     output: {
         filename: "[name].js",
@@ -16,7 +18,7 @@ module.exports = {
                 test: /\.ts$/,
                 loaders: [
                     {
-                        loader: 'awesome-typescript-loader',                       
+                        loader: 'awesome-typescript-loader',
                     },
                 ]
             }
