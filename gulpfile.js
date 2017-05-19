@@ -1,17 +1,26 @@
 var gulp = require('gulp');
 var concat = require('gulp-concat');
-//var sourcemaps = require('gulp-sourcemaps');
-const webPackConfig = require('./src/config/webpack.config.js');
-const webPack = require('webpack-stream');
+
+const webpackConfig = require('./src/config/webpack.config.js');
+const webpackStream = require('webpack-stream');
 const runSequence = require('run-sequence');
 const rimraf = require('rimraf');
+const webpack2 = require('webpack');
 
 
-
-gulp.task('compile', function () {    
-    return gulp.src(['src/**/*.ts'])
-        .pipe(webPack(webPackConfig))
+//pass in the TypeScript folder to webpack for compileing
+//configuration for web pack declared above
+gulp.task('compile', function () {
+    return gulp.src(['src/scripts/**/*.ts'])
+        .pipe(webpackStream(webpackConfig, webpack2))
         .pipe(gulp.dest('dist'));
+});
+
+//Copy all client assets and html views
+//Exclude configuration, .json, .ts files
+gulp.task("clientResources", () => {
+    return gulp.src(["src/**/*", "src/*.html", "!src/config", "!src/config/**", "!src/scripts", "!src/scripts/**", "!**/*.ts", "!src/*.json"])
+        .pipe(gulp.dest("dist"));
 });
 
 //Delete the entire folder and recreate
@@ -20,10 +29,19 @@ gulp.task('clean', (cb) => {
 });
 
 
+//Need to configure compas ruby watch for sass
+//https://www.npmjs.com/package/gulp-compass
 gulp.task('watch', function () {
 
-    gulp.watch(['src/scripts/*.ts'], ['clean','compile']).on('change', function (e) {
-        console.log('TypeScript file ' + e.path + ' has been changed. Compiling.');
+    gulp.watch(['src/scripts/**/*'], ['compile']).on('change', function (e) {
+        console.log('File : ' + e.path + ' has been changed. Compiling.');
+    });
+
+    gulp.watch(['src/*.html'], ['clientResources']).on('change', function (e) {
+        console.log('File : ' + e.path + ' has been changed. Compiling.');
+    });
+    gulp.watch(['src/views/**/*'], ['clientResources']).on('change', function (e) {
+        console.log('File : ' + e.path + ' has been changed. Compiling.');
     });
 
 
@@ -31,5 +49,5 @@ gulp.task('watch', function () {
 
 
 gulp.task("build", function (callback) {
-    runSequence('clean','compile', callback);
+    runSequence('clean', 'compile', 'clientResources', callback);
 })
